@@ -1,6 +1,6 @@
 {
     "watch": ["src", "**/*.tsx"],
-    "ext": "ts",
+    "ext": "tsx",
     "ignore": ["node_modules"],
-    "exec": "ts-node ./src/server.tsx"
+    "exec": "ts-node --esm ./server.tsx"
   }
