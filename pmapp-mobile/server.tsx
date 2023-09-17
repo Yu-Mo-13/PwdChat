@@ -14,6 +14,20 @@ app.use(express.json());
 
 const db = mysql.createConnection(atob(process.env.DATABASE_URL!));
 
+// アカウント必要区分を判断する
+app.get('/application/app=:app', (req: Request, res: Response) => {
+    const app = req.params.app;
+    const sql: string = "select accountClas from application where name = ?";
+    db.query(sql, [app], (err: Error | null, result: any) => {
+        if (err) {
+            console.log(err);
+            res.status(500).send(result);
+        } else {
+            res.status(200).json(result);
+        }
+    });
+});
+
 // アカウントのサジェスト
 app.get('/account/app=:app', (req: Request, res: Response) => {
     const app = req.params.app;
