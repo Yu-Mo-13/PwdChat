@@ -2,7 +2,6 @@ import express, { Request, Response } from 'express';
 
 import mysql from 'mysql2';
 import cors from 'cors';
-// import cryptoJs from 'crypto-js';
 import dotenv from 'dotenv';
 
 // .envの読み込み
@@ -13,18 +12,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// const dbuser = cryptoJs.AES.decrypt(process.env.USER!, process.env.SECRET_KEY!).toString(cryptoJs.enc.Utf8);
-// const dbpass = cryptoJs.AES.decrypt(process.env.USER!, process.env.SECRET_KEY!).toString(cryptoJs.enc.Utf8);
-
-// const db = mysql.createConnection({
-//     host: process.env.HOST,
-//     user: dbuser,
-//     password: dbpass,
-//     port: Number(process.env.PORT),
-//     database: process.env.DATABASE,
-//     ssl: {"rejectUnauthorized":true}
-// });
-const db = mysql.createConnection(process.env.DATABASE_URL!);
+const db = mysql.createConnection(atob(process.env.DATABASE_URL!));
 
 // アカウントのサジェスト
 app.get('/account/app=:app', (req: Request, res: Response) => {
