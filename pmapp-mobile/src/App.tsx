@@ -3,7 +3,9 @@
 // import viteLogo from '/vite.svg'
 import './App.css'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
-import Chat from './Chat.tsx'
+import ChatQ1 from './ChatQ1.tsx'
+import ChatQ2 from './ChatQ2.tsx'
+import ChatResult from './ChatResult.tsx'
 import Login from './login.tsx'
 
 function App() {
@@ -11,8 +13,11 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/login" element={<Login />} />
-        <Route path="/chat" element={<Chat />} />
+        <Route path="/chat/q1" element={<ChatQ1 />} />
+        <Route path="/chat/q2" element={<ChatQ2 />} />
+        <Route path="/chat/result" element={<ChatResult />} />
         <Route path="/" element={<Navigate to="/login" />} />
+        <Route path="/chat/" element={<Navigate to="/chat/q1" />} />
       </Routes>
     </BrowserRouter>
   )

@@ -25,7 +25,7 @@ const Login = () => {
             return;
         }
         // チャット画面へ遷移
-        navigate("/chat", { replace: true });
+        navigate("/chat/q1", { replace: true });
     }
 
     return (
