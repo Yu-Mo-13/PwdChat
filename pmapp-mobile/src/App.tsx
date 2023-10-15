@@ -7,6 +7,7 @@ import ChatQ1 from './ChatQ1.tsx'
 import ChatQ2 from './ChatQ2.tsx'
 import ChatResult from './ChatResult.tsx'
 import Login from './login.tsx'
+import Pause from './pause.tsx'
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/chat/result" element={<ChatResult />} />
         <Route path="/" element={<Navigate to="/login" />} />
         <Route path="/chat/" element={<Navigate to="/chat/q1" />} />
+        <Route path="/pause" element={<Pause />} />
       </Routes>
     </BrowserRouter>
   )

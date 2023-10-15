@@ -14,12 +14,16 @@ const Login = () => {
 
     const onClickLogin = () => {
         // ログイン処理
+        // テキストボックスからユーザーIDとパスワードを取得する
+        const userId = getText("USERID");
+        const keyword = getText("PASSWORD");
         if (userId === "" || keyword === "") {
             alert("ログイン情報を入力してください。");
             return;
         }
-        const id = atob(import.meta.env.VITE_USER);
-        const pass = atob(import.meta.env.VITE_KEYWORD);
+        // ユーザーIDとパスワードを照合する
+        const id: string = atob(import.meta.env.VITE_USER);
+        const pass: string = atob(import.meta.env.VITE_KEYWORD);
         if (!(userId === id && keyword === pass)) {
             alert("ログイン情報が間違っています。");
             return;
@@ -32,9 +36,9 @@ const Login = () => {
         <div className="contents">
             <Caption caption="PMAPPログイン" />
             {/* ユーザーIDを入力するテキストボックス */}
-            <Textbox type="text" placeholder="ユーザーID" onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUserId(e.target.value)} value={userId} />
+            <Textbox type="text" id="USERID" placeholder="ユーザーID" onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUserId(e.target.value)} value={userId} />
             {/* パスワードを入力するテキストボックス */}
-            <Textbox type="password" placeholder="パスワード" onChange={(e: React.ChangeEvent<HTMLInputElement>) => setKeyword(e.target.value)} value={keyword} />
+            <Textbox type="password" id="PASSWORD" placeholder="パスワード" onChange={(e: React.ChangeEvent<HTMLInputElement>) => setKeyword(e.target.value)} value={keyword} />
             {/* ログインボタン */}
             <Button caption="ログイン" onClick={onClickLogin} />
         </div>
