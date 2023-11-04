@@ -1,12 +1,35 @@
+import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Caption } from "./caption";
 import { Textbox } from "./textbox";
 import { Button } from "./button";
+import * as yup from 'yup'; // yupのインポート
+
+// yupによるバリデーションスキーマの定義
+const ChatQ1Schema = yup.object().shape({
+    appName: yup.string().required('アプリ名を入力してください。'),
+});
 
 const ChatQ1 = () => {
     const [appName, setAppName] = useState<string>("");
     const navigate = useNavigate();
+
+    const onClickSubmitAppName = async () => {
+        try {
+            // yupを使ってバリデーションを行う
+            await ChatQ1Schema.validate({ appName });
+            // Pauseに画面遷移する
+            navigate("/pause", { state: {appName: appName}, replace: true });
+        } catch (error) {
+            if (error instanceof yup.ValidationError) {
+                alert(error.message); // yupからのエラーメッセージを表示
+            } else {
+                // その他のエラー
+                console.error("重大なエラーが発生しました:", error);
+            }
+        }
+    }
     
     // const getAccountList = () => {
     //     // アカウントのサジェスト
@@ -44,24 +67,11 @@ const ChatQ1 = () => {
     //         });
     // }
 
-    const onClickSubmitApp = () => {
-        // アプリ名の入力欄からテキストを取得する
-        const appName = getText("app");
-        if (appName === "") {
-            alert("アプリ名を入力してください。");
-            return;
-        }
-        // appNameを格納して、Pauseに遷移する
-        setAppName(appName);
-        // Pauseに画面遷移する
-        navigate("/pause", { state: {appName: appName}, replace: true });
-    }
-
     return (
         <div className="contents">
             <Caption caption="アプリ名" />
-            <Textbox type="text" id="app" placeholder="アプリ" value={appName} />
-            <Button caption="読込" onClick={onClickSubmitApp} />
+            <Textbox type="text" id="APP" placeholder="アプリ" onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAppName(e.target.value)} value={appName} />
+            <Button caption="読込" onClick={onClickSubmitAppName} />
         </div>
     );
 };

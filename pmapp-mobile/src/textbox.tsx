@@ -1,7 +1,7 @@
 import * as CSS from 'csstype';
 
 export const Textbox = (props: any) => {
-    const { type, id, placeholder, val } = props;
+    const { type, id, placeholder, val, onChange } = props;
 
     const textboxStyle: CSS.Properties = {
         width: '85%',
@@ -15,6 +15,6 @@ export const Textbox = (props: any) => {
     };
 
     return (
-        <input type={type} id={id} placeholder={placeholder} style={textboxStyle} value={val} />
+        <input type={type} id={id} placeholder={placeholder} style={textboxStyle} value={val} onChange={onChange}/>
     );
 }
