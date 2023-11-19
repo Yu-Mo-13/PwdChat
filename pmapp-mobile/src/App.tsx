@@ -3,23 +3,23 @@
 // import viteLogo from '/vite.svg'
 import './App.css'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
-import ChatQ1 from './ChatQ1.tsx'
-import ChatQ2 from './ChatQ2.tsx'
-import ChatResult from './ChatResult.tsx'
 import Login from './login.tsx'
-import Pause from './Pause.tsx'
+import PasswordDetail from './PasswordDetail.tsx'
+// import ChatQ2 from './ChatQ2.tsx'
+// import ChatResult from './ChatResult.tsx'
+// import Pause from './Pause.tsx'
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/login" element={<Login />} />
-        <Route path="/chat/q1" element={<ChatQ1 />} />
-        <Route path="/chat/q2" element={<ChatQ2 />} />
-        <Route path="/chat/result" element={<ChatResult />} />
+        <Route path="/detail" element={<PasswordDetail />} />
         <Route path="/" element={<Navigate to="/login" />} />
-        <Route path="/chat/" element={<Navigate to="/chat/q1" />} />
-        <Route path="/pause" element={<Pause />} />
+        {/* <Route path="/chat/q2" element={<ChatQ2 />} /> */}
+        {/* <Route path="/chat/result" element={<ChatResult />} /> */}
+        {/* <Route path="/chat/" element={<Navigate to="/chat/q1" />} /> */}
+        {/* <Route path="/pause" element={<Pause />} /> */}
       </Routes>
     </BrowserRouter>
   )

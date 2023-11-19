@@ -2,8 +2,8 @@ import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Textbox } from "./textbox.tsx";
-import { Caption } from "./caption.tsx";
-import { Button } from "./button.tsx";
+import { AppTitle } from "./apptitle.tsx";
+import { LargeButton } from "./largeButton.tsx";
 import * as yup from 'yup'; // yupのインポート
 import './App.css';
 
@@ -31,7 +31,7 @@ const Login = () => {
                 return;
             }
             // チャット画面へ遷移
-            navigate("/chat/q1", { replace: true });
+            navigate("/detail", { replace: true });
         } catch (error) {
             if (error instanceof yup.ValidationError) {
                 alert(error.message); // yupからのエラーメッセージを表示
@@ -44,13 +44,13 @@ const Login = () => {
 
     return (
         <div className="contents">
-            <Caption caption="PMAPPログイン" />
+            <AppTitle caption="PMAPP Mobile" />
             {/* ユーザーIDを入力するテキストボックス */}
             <Textbox type="text" id="USERID" placeholder="ユーザーID" onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUserId(e.target.value)} value={userId} />
             {/* パスワードを入力するテキストボックス */}
             <Textbox type="password" id="PASSWORD" placeholder="パスワード" onChange={(e: React.ChangeEvent<HTMLInputElement>) => setKeyword(e.target.value)} value={keyword} />
             {/* ログインボタン */}
-            <Button caption="ログイン" onClick={onClickLogin} />
+            <LargeButton caption="ログイン" onClick={onClickLogin} isEnabled={true} />
         </div>
     );
 }

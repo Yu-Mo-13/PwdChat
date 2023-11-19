@@ -1,14 +1,13 @@
 import * as CSS from 'csstype';
 
-export const Caption = (props: any) => {
+export const AppTitle = (props: any) => {
     const { caption } = props;
 
     const captionStyle: CSS.Properties = {
-        width: '8rem',
+        width: '100%',
         height: '3rem',
-        fontSize: '1.3rem',
-        marginBottom: '0rem',
-        textAlign: 'left'
+        fontSize: '1.5rem',
+        textAlign: 'center'
     };
 
     const captionText = caption;

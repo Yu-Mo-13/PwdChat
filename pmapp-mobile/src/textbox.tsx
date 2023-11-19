@@ -7,7 +7,7 @@ export const Textbox = (props: any) => {
         width: '85%',
         height: '50px',
         fontSize: '20px',
-        marginBottom: '10px',
+        marginBottom: '4px',
         paddingLeft: '10px',
         paddingRight: '10px',
         borderRadius: '5px',
