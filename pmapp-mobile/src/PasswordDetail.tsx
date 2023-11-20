@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Caption } from "./caption";
 import { Textbox } from "./textbox";
 import { SmallButton } from "./smallButton";
+import SelectAccountDialog from "./SelectAccountDialog";
 import * as yup from 'yup'; // yupのインポートpescript";
 import * as CSS from 'csstype';
 import { AppTitle } from "./apptitle";
@@ -13,8 +14,9 @@ const schema = yup.object().shape({
     appName: yup.string().required('アプリ名を入力してください。'),
 });
 
-const PasswordDetail = () => {
+const PasswordDetail: React.FC = () => {
     const [appName, setAppName] = useState<string>("");
+    const [accountList, setAccountList] = useState<string[]>([]);
     const navigate = useNavigate();
 
     const footerStyle: CSS.Properties = {
@@ -23,12 +25,12 @@ const PasswordDetail = () => {
         justifyContent: 'space-between',
     };
 
-    const onClickSubmitAppName = async () => {
+    const onClickReadButton = async () => {
         try {
             // yupを使ってバリデーションを行う
             await schema.validate({ appName });
             // Pauseに画面遷移する
-            navigate("/pause", { state: {appName: appName}, replace: true });
+            // navigate("/pause", { state: {appName: appName}, replace: true });
         } catch (error) {
             if (error instanceof yup.ValidationError) {
                 alert(error.message); // yupからのエラーメッセージを表示
@@ -89,7 +91,8 @@ const PasswordDetail = () => {
                 <Textbox type="text" id="PWD" placeholder="パスワード" />
             </div>
             <div className="footer" style={footerStyle}>
-                <SmallButton caption="読込" onClick={onClickSubmitAppName} isEnabled={true} />
+                <SmallButton caption="読込" onClick={onClickReadButton} isEnabled={true} />
+                <SelectAccountDialog accounts={accountList} />
                 <SmallButton caption="検索" onClick={() => navigate("/", { replace: true })} isEnabled={true} />
                 <SmallButton caption="戻る" onClick={() => navigate("/", { replace: true })} isEnabled={true} />
             </div>
