@@ -1,9 +1,9 @@
 import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Textbox } from "./textbox.tsx";
-import { AppTitle } from "./apptitle.tsx";
-import { LargeButton } from "./largeButton.tsx";
+import { Textbox } from "./component/textbox.tsx";
+import { AppTitle } from "./component/apptitle.tsx";
+import { LargeButton } from "./component/largeButton.tsx";
 import * as yup from 'yup'; // yupのインポート
 import './App.css';
 

@@ -1,7 +1,8 @@
 // アカウントを選択するモーダルダイアログ
 import React, { useState } from 'react';
-import { Listbox } from './listbox';
-import { Caption } from './caption';
+import { Listbox } from './component/listbox';
+import { Caption } from './component/caption';
+import { SmallButton } from './component/smallButton';
 
 interface ModalProps {
   isOpen: boolean;
@@ -41,7 +42,7 @@ const SelectAccountDialog: React.FC<SelectAccountDialogProps> = ({ accounts }) =
 
   return (
     <div>
-      <button onClick={handleOpenModal}>アカウントを選択</button>
+      <SmallButton onClick={handleOpenModal} isEnabled={true}>読込</SmallButton>
       <Modal isOpen={isModalOpen} onClose={handleCloseModal} accounts={accounts}>
         <p>ここにアカウント選択の内容を追加します。</p>
       </Modal>
