@@ -15,6 +15,6 @@ export const Textbox = (props: any) => {
     };
 
     return (
-        <input type={type} id={id} placeholder={placeholder} style={textboxStyle} value={val} onChange={onChange}/>
+        <input type={type} id={id} placeholder={placeholder} style={textboxStyle} autoComplete="off" value={val} onChange={onChange}/>
     );
 }

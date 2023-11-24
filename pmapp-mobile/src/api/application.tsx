@@ -14,3 +14,4 @@ const getAccountList = async (app: string) => {
     }
     return accountList;
 }
+export { getAccountClas, getAccountList };
