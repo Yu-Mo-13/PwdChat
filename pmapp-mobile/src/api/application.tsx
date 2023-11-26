@@ -4,7 +4,8 @@ const getAccountClas = async (app: string) => {
     const data = await response.json();
     return data[0].accountClas;
 }
-const getAccountList = async (app: string) => {
+const getAccountList = async (app: string, accountClas: string) => {
+    if (accountClas !== '1') return new Array(0);
     const response = await fetch(APIURL + "/account/app=" + app);
     const data = await response.json();
     const accountList: string[] = new Array(data.length);

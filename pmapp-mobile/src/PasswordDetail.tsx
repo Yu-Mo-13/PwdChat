@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Caption } from "./component/caption";
 import { Textbox } from "./component/textbox";
+import { ReadonlyTextbox } from "./component/readonlyTextBox";
 import { SmallButton } from "./component/smallButton";
 import * as yup from 'yup'; // yupのインポートpescript";
 import * as CSS from 'csstype';
@@ -22,6 +23,7 @@ const PasswordDetail: React.FC = () => {
     const [appName, setAppName] = useState<string>("");
     const [accountClas, setAccountClas] = useState<string>('0');
     const [accountList, setAccountList] = useState<string[]>([]);
+    const [selectedAccount, setSelectedAccount] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const navigate = useNavigate();
 
@@ -31,34 +33,39 @@ const PasswordDetail: React.FC = () => {
         justifyContent: 'space-between',
     };
 
+    const handleAccountChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        setSelectedAccount(e.target.value);
+    }
+
     const onClickReadButton = async () => {
         try {
             // yupを使ってバリデーションを行う
             await schema.validate({ appName });
             // getAccountClasで返却された値をaccountClasに設定する
             setAccountClas(await getAccountClas(appName));
-            if (accountClas === '1') {
-                canUseAccountList = true;
-                setAccountList(await getAccountList(appName));
-            }
-        } catch (error) {
+            setAccountList(await getAccountList(appName, accountClas));
+            canUseAccountList = true;
+        } catch (error : any) {
             if (error instanceof yup.ValidationError) {
                 alert(error.message); // yupからのエラーメッセージを表示
             } else {
                 // その他のエラー
-                alert("重大なエラーが発生しました。" + error);
+                alert("エラーが発生しました。" + error);
             }
         }
     }
 
     const onClickSearchButton = async () => {
         try {
-            // Listboxで選択されたアカウントを取得する
-            const account: string = accountList[parseInt(accountClas)];
             // getPasswordで返却された値をpasswordに設定する
+            const account: string = accountClas === '1' ? selectedAccount : "";
             setPassword(await getPassword(appName, accountClas, account));
-        } catch (error) {
-            console.error("重大なエラーが発生しました。", error);
+        } catch (error: any) {
+            if (error instanceof yup.ValidationError) {
+                alert("バリデーションエラーが発生しました。" + error.message); // yupからのエラーメッセージを表示
+            } else {
+                alert("エラーが発生しました。" + error);
+            }
         }
     }
 
@@ -71,9 +78,9 @@ const PasswordDetail: React.FC = () => {
                 <Caption caption="アプリ名" />
                 <Textbox type="text" id="APP" placeholder="アプリ" onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAppName(e.target.value)} value={appName} />
                 <Caption caption="アカウント" />
-                <Listbox optionItems={accountList} isEnabled={canUseAccountList} />
+                <Listbox id="ACCOUNT" optionItems={accountList} isEnabled={canUseAccountList} onChange={handleAccountChange} />
                 <Caption caption="パスワード" />
-                <Textbox type="text" id="PWD" placeholder="パスワード" val={password} />
+                <ReadonlyTextbox type="text" id="PWD" placeholder="パスワード" val={atob(password)} />
             </div>
             <div className="footer" style={footerStyle}>
                 <SmallButton caption="読込" onClick={onClickReadButton} isEnabled={true} />

@@ -1,7 +1,7 @@
 import * as CSS from 'csstype';
 
 export const Listbox = (props: any) => {
-    const { optionItems, isEnabled } = props;
+    const { id, optionItems, onChange, isEnabled } = props;
 
     const listBoxStyle: CSS.Properties = {
         width: '95%',
@@ -14,10 +14,10 @@ export const Listbox = (props: any) => {
     };
 
     return (
-        <select style={listBoxStyle}>
+        <select style={listBoxStyle} onChange={onChange}>
             {/* propsで渡された配列の個数分optionを生成 */}
             {optionItems.map((item: any) => {
-                return <option value={item} disabled={!isEnabled}>{item}</option>;
+                return <option id={id} value={item} disabled={!isEnabled}>{item}</option>;
             })}
         </select>
     );
