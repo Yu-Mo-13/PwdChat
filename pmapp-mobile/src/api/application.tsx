@@ -1,4 +1,4 @@
-const APIURL: string = import.meta.env.VITE_API_BASE_URL;
+const APIURL: string = process.env.VITE_API_BASE_URL;
 const getAccountClas = async (app: string) => {
     const response = await fetch(APIURL + "/application/app=" + app);
     const data = await response.json();
