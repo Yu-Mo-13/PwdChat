@@ -24,8 +24,8 @@ const Login = () => {
             await LoginSchema.validate({ userId, keyword });
 
             // ユーザーIDとパスワードを照合する
-            const id: string = process.env.VITE_USER !== undefined ? atob(process.env.VITE_USER) : (import.meta.env.VITE_USER !== undefined ? atob(import.meta.env.VITE_USER) : "");
-            const pass: string = process.env.VITE_KEYWORD !== undefined ? atob(process.env.VITE_KEYWORD) : (import.meta.env.VITE_KEYWORD !== undefined ? atob(import.meta.env.VITE_KEYWORD) : "");
+            const id: string = import.meta.env.VITE_USER;
+            const pass: string = import.meta.env.VITE_KEYWORD;
             if (!(userId === id && keyword === pass)) {
                 alert("ログイン情報が間違っています。");
                 return;
