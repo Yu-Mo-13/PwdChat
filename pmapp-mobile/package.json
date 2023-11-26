@@ -6,6 +6,8 @@
   "main": "server.tsx",
   "scripts": {
     "dev": "vite",
+    "heroku-postbuild": "npm run build",
+    "start": "serve -s build",
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
