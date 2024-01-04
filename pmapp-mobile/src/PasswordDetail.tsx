@@ -11,6 +11,7 @@ import { AppTitle } from "./component/apptitle";
 import { Listbox } from "./component/listbox";
 import { getAccountClas, getAccountList } from "./api/application";
 import { getPassword } from "./api/password";
+import { ACCOUNTCLASS } from "./utilities/const";
 
 // yupによるバリデーションスキーマの定義
 const schema = yup.object().shape({
@@ -43,8 +44,11 @@ const PasswordDetail: React.FC = () => {
             await schema.validate({ appName });
             // getAccountClasで返却された値をaccountClasに設定する
             setAccountClas(await getAccountClas(appName));
-            setAccountList(await getAccountList(appName, accountClas));
-            canUseAccountList = true;
+            if (accountClas === ACCOUNTCLASS.NeedAccount) {
+                // アカウント区分が1の場合はアカウントリストを取得する
+                setAccountList(await getAccountList(appName, accountClas));
+                canUseAccountList = true;
+            }
         } catch (error : any) {
             if (error instanceof yup.ValidationError) {
                 alert(error.message); // yupからのエラーメッセージを表示
@@ -59,6 +63,7 @@ const PasswordDetail: React.FC = () => {
         try {
             // getPasswordで返却された値をpasswordに設定する
             const account: string = accountClas === '1' ? selectedAccount : "";
+            await schema.validate({ appName });
             setPassword(await getPassword(appName, accountClas, account));
         } catch (error: any) {
             if (error instanceof yup.ValidationError) {
@@ -84,7 +89,7 @@ const PasswordDetail: React.FC = () => {
             </div>
             <div className="footer" style={footerStyle}>
                 <SmallButton caption="読込" onClick={onClickReadButton} isEnabled={true} />
-                <SmallButton caption="検索" onClick={onClickSearchButton} isEnabled={true} />
+                <SmallButton caption="検索" onClick={onClickSearchButton} isEnabled={canUseAccountList} />
                 <SmallButton caption="戻る" onClick={() => navigate("/", { replace: true })} isEnabled={true} />
             </div>
         </div>
