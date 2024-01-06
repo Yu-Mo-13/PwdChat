@@ -7,16 +7,16 @@ const port = process.env.PORT || 3000;
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 app.use(express.json());
-app.use(express.static(path.join(__dirname, '..', 'build')));
+app.use(express.static(path.join(__dirname, '.', 'build')));
 
 // 静的ファイルのルーティング
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'build'));
+    res.sendFile(path.join(__dirname, '.', 'build'));
     console.log(req);
 });
 
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'build/index.html'));
+    res.sendFile(path.join(__dirname, '.', 'index.html'));
     console.log(req);
 });
 
