@@ -10,10 +10,6 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/detail" element={<PasswordDetail />} />
         <Route path="/" element={<Navigate to="/login" />} />
-        {/* <Route path="/chat/q2" element={<ChatQ2 />} /> */}
-        {/* <Route path="/chat/result" element={<ChatResult />} /> */}
-        {/* <Route path="/chat/" element={<Navigate to="/chat/q1" />} /> */}
-        {/* <Route path="/pause" element={<Pause />} /> */}
       </Routes>
     </BrowserRouter>
   )
