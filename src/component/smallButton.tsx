@@ -7,10 +7,13 @@ export const SmallButton = (props: any) => {
         width: '4rem',
         height: '3rem',
         fontSize: '0.8rem',
+        fontWeight: 'bold',
+        color: 'white',
         marginBottom: '10px',
         marginTop: '15px',
         textAlign: 'center',
-        backgroundColor: '#3cb371',
+        // disabledの場合は、濃いグレーにする
+        backgroundColor: isEnabled ? '#3cb371' : '#808080'
     };
 
     return (

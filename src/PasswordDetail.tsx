@@ -1,17 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Caption } from "./component/caption";
 import { Textbox } from "./component/textbox";
 import { ReadonlyTextbox } from "./component/readonlyTextBox";
 import { SmallButton } from "./component/smallButton";
-import * as yup from 'yup'; // yupのインポートpescript";
+import * as yup from 'yup'; // yupのインポート";
 import * as CSS from 'csstype';
 import { AppTitle } from "./component/apptitle";
 import { Listbox } from "./component/listbox";
 import { getAccountClas, getAccountList } from "./api/application";
 import { getPassword } from "./api/password";
-import { ACCOUNTCLASS } from "./utilities/const";
 
 // yupによるバリデーションスキーマの定義
 const schema = yup.object().shape({
@@ -47,11 +46,12 @@ const PasswordDetail: React.FC = () => {
             await schema.validate({ appName });
             // getAccountClasで返却された値をaccountClasに設定する
             setAccountClas(await getAccountClas(appName));
-            if (accountClas === ACCOUNTCLASS.NeedAccount) {
-                // アカウント区分が1の場合はアカウントリストを取得する
-                setAccountList(await getAccountList(appName, accountClas));
-            }
-            setCanUseAccountList(updateCanUseAccountList(canUseAccountList));
+            // アカウント区分が1の場合はアカウントリストを取得する
+            setAccountList(await getAccountList(appName, accountClas));
+            setAccountList(await getAccountList(appName, accountClas));
+            setTimeout(() => {
+                setCanUseAccountList(updateCanUseAccountList(canUseAccountList))
+            , 1000});
         } catch (error : any) {
             if (error instanceof yup.ValidationError) {
                 alert(error.message); // yupからのエラーメッセージを表示
@@ -76,6 +76,13 @@ const PasswordDetail: React.FC = () => {
             }
         }
     }
+
+    useEffect(() => {
+        // accountListが取得された時、accountListの先頭の値をselectedAccountに設定する
+        if (accountList.length > 0) {
+            setSelectedAccount(accountList[0]);
+        }
+    }, [accountList]);
 
     return (
         <div className="contents">
