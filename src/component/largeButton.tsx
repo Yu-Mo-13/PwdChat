@@ -7,6 +7,8 @@ export const LargeButton = (props: any) => {
         width: '7rem',
         height: '3rem',
         fontSize: '1rem',
+        fontWeight: 'bold',
+        color: 'white',
         marginBottom: '10px',
         marginTop: '15px',
         textAlign: 'center',

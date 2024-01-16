@@ -4,13 +4,18 @@ export const Listbox = (props: any) => {
     const { id, optionItems, onChange, isEnabled } = props;
 
     const listBoxStyle: CSS.Properties = {
-        width: '95%',
+        width: '220px',
         height: '50px',
         fontSize: '20px',
         marginBottom: '10px',
         paddingRight: '10px',
         borderRadius: '5px',
-        border: '1px solid #ccc'
+        border: '1px solid #ccc',
+        maxWidth: '95%',
+        // はみ出す場合は、・・・で省略する
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+        whiteSpace: 'nowrap',
     };
 
     return (
