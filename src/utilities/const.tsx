@@ -1,4 +1,4 @@
 export const ACCOUNTCLASS = {
-    NeedAccount: "1",
-    NoNeedAccount: "2",
+  NeedAccount: "1",
+  NoNeedAccount: "2",
 };
