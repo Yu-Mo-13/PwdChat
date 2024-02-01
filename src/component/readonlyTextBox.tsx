@@ -1,7 +1,8 @@
 import * as CSS from "csstype";
+import { TextboxProps } from "../types/textbox";
 
-export const ReadonlyTextbox = (props: any) => {
-  const { type, id, placeholder, val } = props;
+export const ReadonlyTextbox = (props: TextboxProps) => {
+  const { type, id, placeholder, val, onChange } = props;
 
   const textboxStyle: CSS.Properties = {
     width: "85%",
@@ -22,6 +23,7 @@ export const ReadonlyTextbox = (props: any) => {
       style={textboxStyle}
       autoComplete="off"
       value={val}
+      onChange={onChange}
       readOnly
     />
   );

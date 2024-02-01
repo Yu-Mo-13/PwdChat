@@ -40,6 +40,10 @@ const PasswordDetail: React.FC = () => {
     setSelectedAccount(e.target.value);
   };
 
+  const alertSearchComplete = () => {
+    alert("パスワードの検索が完了しました。");
+  };
+
   const onClickReadButton = async () => {
     try {
       // yupを使ってバリデーションを行う
@@ -113,6 +117,7 @@ const PasswordDetail: React.FC = () => {
           id="PWD"
           placeholder="パスワード"
           val={atob(password)}
+          onChange={alertSearchComplete}
         />
       </div>
       <div className="footer" style={footerStyle}>

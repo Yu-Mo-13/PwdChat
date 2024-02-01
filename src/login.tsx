@@ -4,8 +4,10 @@ import { useNavigate } from "react-router-dom";
 import { Textbox } from "./component/textbox.tsx";
 import { AppTitle } from "./component/apptitle.tsx";
 import { LargeButton } from "./component/largeButton.tsx";
+import { checkLogin } from "./api/user.ts";
 import * as yup from "yup"; // yupのインポート
 import "./App.css";
+import { AUTHCLASS } from "./utilities/const.tsx";
 
 // yupによるバリデーションスキーマの定義
 const LoginSchema = yup.object().shape({
@@ -22,23 +24,29 @@ const Login = () => {
     try {
       // yupを使ってバリデーションを行う
       await LoginSchema.validate({ userId, keyword });
+      const userInfo = await checkLogin(userId, btoa(keyword));
 
-      // ユーザーIDとパスワードを照合する
-      const id: string = atob(import.meta.env.VITE_USER);
-      const pass: string = atob(import.meta.env.VITE_KEYWORD);
-      if (!(userId === id && keyword === pass)) {
-        alert("ログイン情報が間違っています。");
-        return;
-      }
-      // チャット画面へ遷移
-      navigate("/detail", { replace: true });
+      // 権限コードを取得して、遷移先の画面を決定する
+      const authCode = userInfo.authcd;
+
+      // 管理者権限はメニュー画面へ遷移
+      // 一般権限はパスワード検索画面へ遷移
+      authCode === AUTHCLASS.Admin
+        ? navigate("/menu", { replace: true })
+        : navigate("/detail", { replace: true });
     } catch (error: unknown) {
       if (error instanceof yup.ValidationError) {
-        alert(error.message); // yupからのエラーメッセージを表示
-      } else {
-        // その他のエラー
-        console.error("重大なログインエラーが発生しました:", error);
+        // バリデーションエラー
+        alert(error.message);
+        return;
       }
+      if (error instanceof TypeError) {
+        // ログインエラー
+        alert("ユーザーIDまたはパスワードが間違っています。");
+        return;
+      }
+      // その他のエラー
+      alert(`重大なログインエラーが発生しました: ${error}`);
     }
   };
 
@@ -53,7 +61,7 @@ const Login = () => {
         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
           setUserId(e.target.value)
         }
-        value={userId}
+        val={userId}
       />
       {/* パスワードを入力するテキストボックス */}
       <Textbox
@@ -63,7 +71,7 @@ const Login = () => {
         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
           setKeyword(e.target.value)
         }
-        value={keyword}
+        val={keyword}
       />
       {/* ログインボタン */}
       <LargeButton caption="ログイン" onClick={onClickLogin} isEnabled={true} />

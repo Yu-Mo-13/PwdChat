@@ -1,0 +1,24 @@
+import * as CSS from "csstype";
+import { ButtonProps } from "../types/button";
+
+export const Plate = (props: ButtonProps) => {
+  const { caption, isEnabled, onClick } = props;
+
+  const plateStyle: CSS.Properties = {
+    width: "18rem",
+    height: "5rem",
+    fontSize: "1.5rem",
+    fontWeight: "bold",
+    color: "white",
+    marginBottom: "10px",
+    marginTop: "15px",
+    textAlign: "center",
+    backgroundColor: isEnabled ? "#3cb371" : "gray",
+  };
+
+  return (
+    <button style={plateStyle} disabled={!isEnabled} onClick={onClick}>
+      {caption}
+    </button>
+  );
+};
