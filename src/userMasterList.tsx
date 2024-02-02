@@ -1,4 +1,3 @@
-"use server";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AppTitle } from "./component/apptitle";
@@ -14,11 +13,13 @@ const UserMasterList: React.FC = () => {
   const navigate = useNavigate();
   const snap = useSnapshot(store);
   const [userList, setUserList] = useState<User[]>([]);
+  const [canSelect, setCanSelect] = useState<boolean>(false);
 
   // ユーザーマスター画面が表示されたときにユーザーリストを取得する
   useState(() => {
     const fetchUserList = async () => {
       setUserList(await getUserList());
+      setCanSelect(true);
     };
     fetchUserList();
   });
@@ -37,12 +38,12 @@ const UserMasterList: React.FC = () => {
       <AppTitle caption="ユーザーマスター" />
       <Plate
         caption="戻る"
-        isEnabled={true}
+        isEnabled={canSelect}
         onClick={() => navigate("/menu", { replace: true })}
       />
       <Plate
         caption="新規作成"
-        isEnabled={true}
+        isEnabled={canSelect}
         onClick={() => navigate("/useradd", { replace: true })}
       />
       <div className="userList" style={userMasterListStyle}>
@@ -50,7 +51,7 @@ const UserMasterList: React.FC = () => {
           <Plate
             key={user.id}
             caption={user.jpnname}
-            isEnabled={true}
+            isEnabled={canSelect}
             onClick={() =>
               navigate(`/userdetail/${user.id}`, { replace: true })
             }

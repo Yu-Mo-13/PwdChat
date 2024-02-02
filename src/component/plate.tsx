@@ -14,7 +14,7 @@ export const Plate = (props: ButtonProps, exProps: { key: string }) => {
     marginBottom: "10px",
     marginTop: "15px",
     textAlign: "center",
-    backgroundColor: isEnabled ? "#3cb371" : "gray",
+    backgroundColor: isEnabled ? "#3cb371" : "#808080",
   };
 
   return (
