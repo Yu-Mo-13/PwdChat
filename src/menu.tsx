@@ -2,11 +2,15 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { AppTitle } from "./component/apptitle";
 import { Plate } from "./component/plate";
+import { LoginUser } from "./component/loginuser";
+import { store, resetStore } from "./proxy/proxy";
 import { FUNCLIST } from "./utilities/const";
 import * as CSS from "csstype";
+import { useSnapshot } from "valtio";
 
 const Menu: React.FC = () => {
   const navigate = useNavigate();
+  const snap = useSnapshot(store);
 
   const menuStyle: CSS.Properties = {
     display: "flex",
@@ -19,7 +23,7 @@ const Menu: React.FC = () => {
   const onClickPlate = (funcname: string) => {
     switch (funcname) {
       case FUNCLIST[0]:
-        navigate("/detail", { replace: true });
+        navigate("/user", { replace: true });
         break;
       case FUNCLIST[1]:
         navigate("/list", { replace: true });
@@ -31,15 +35,18 @@ const Menu: React.FC = () => {
   };
 
   const onClickLogout = () => {
+    resetStore();
     navigate("/", { replace: true });
   };
 
   return (
     <div className="contents">
+      <LoginUser caption={snap.jpnname} />
       <AppTitle caption="メニュー" />
-      <div style={menuStyle}>
+      <div className="funcList" style={menuStyle}>
         {FUNCLIST.map((funcname) => (
           <Plate
+            key={funcname}
             caption={funcname}
             isEnabled={true}
             onClick={() => onClickPlate(funcname)}

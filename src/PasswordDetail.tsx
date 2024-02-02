@@ -1,10 +1,13 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSnapshot } from "valtio";
 import { Caption } from "./component/caption";
 import { Textbox } from "./component/textbox";
 import { ReadonlyTextbox } from "./component/readonlyTextBox";
 import { SmallButton } from "./component/smallButton";
+import { LoginUser } from "./component/loginuser";
+import { store } from "./proxy/proxy";
 import * as yup from "yup"; // yupのインポート";
 import * as CSS from "csstype";
 import { AppTitle } from "./component/apptitle";
@@ -25,6 +28,7 @@ const PasswordDetail: React.FC = () => {
   const [selectedAccount, setSelectedAccount] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const navigate = useNavigate();
+  const snap = useSnapshot(store);
 
   const footerStyle: CSS.Properties = {
     display: "flex",
@@ -91,6 +95,7 @@ const PasswordDetail: React.FC = () => {
   return (
     <div className="contents">
       <div className="header">
+        <LoginUser caption={snap.jpnname} />
         <AppTitle caption="パスワード検索画面" />
       </div>
       <div className="main">

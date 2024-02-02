@@ -1,11 +1,13 @@
 import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import * as yup from "yup"; // yupのインポート
+import { checkLogin } from "./api/user.ts";
 import { Textbox } from "./component/textbox.tsx";
 import { AppTitle } from "./component/apptitle.tsx";
 import { LargeButton } from "./component/largeButton.tsx";
-import { checkLogin } from "./api/user.ts";
-import * as yup from "yup"; // yupのインポート
+import { setStore } from "./proxy/proxy.ts";
+import { User } from "./types/user.ts";
 import "./App.css";
 import { AUTHCLASS } from "./utilities/const.tsx";
 
@@ -24,7 +26,9 @@ const Login = () => {
     try {
       // yupを使ってバリデーションを行う
       await LoginSchema.validate({ userId, keyword });
-      const userInfo = await checkLogin(userId, btoa(keyword));
+      const userInfo: User = await checkLogin(userId, btoa(keyword));
+      // ログイン情報をストアに保存する
+      setStore(userInfo);
 
       // 権限コードを取得して、遷移先の画面を決定する
       const authCode = userInfo.authcd;
