@@ -20,6 +20,25 @@ export const getUserList = async () => {
   return userList;
 };
 
+// ユーザーマスター情報を取得する
+// URL: /user/id={id}
+export const getUser = async (id: number) => {
+  const APIURL: string = import.meta.env.VITE_API_BASE_URL;
+  const response = await fetch(APIURL + "/user/id=" + String(id));
+  const data = await response.json();
+  const user: User = {
+    id: data.id,
+    password: data.password,
+    engname: data.engname,
+    jpnname: data.jpnname,
+    authcd: data.authcd,
+    deleteflg: data.deleteflg,
+    created_at: data.created_at,
+    updated_at: data.updated_at,
+  };
+  return user;
+};
+
 export const checkLogin = async (name: string, password: string) => {
   const APIURL: string = import.meta.env.VITE_API_BASE_URL;
   const response = await fetch(

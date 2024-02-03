@@ -7,11 +7,12 @@ import { Textbox } from "./component/textbox";
 import { ReadonlyTextbox } from "./component/readonlyTextBox";
 import { SmallButton } from "./component/smallButton";
 import { LoginUser } from "./component/loginuser";
-import { store } from "./proxy/proxy";
+import { authStore } from "./proxy/authProxy";
 import * as yup from "yup"; // yupのインポート";
 import * as CSS from "csstype";
 import { AppTitle } from "./component/apptitle";
 import { Listbox } from "./component/listbox";
+import { emptyAuthority } from "./types/authority";
 import { getAccountClas, getAccountList } from "./api/application";
 import { getPassword } from "./api/password";
 
@@ -28,7 +29,7 @@ const PasswordDetail: React.FC = () => {
   const [selectedAccount, setSelectedAccount] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const navigate = useNavigate();
-  const snap = useSnapshot(store);
+  const snap = useSnapshot(authStore);
 
   const footerStyle: CSS.Properties = {
     display: "flex",
@@ -42,10 +43,6 @@ const PasswordDetail: React.FC = () => {
 
   const handleAccountChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedAccount(e.target.value);
-  };
-
-  const alertSearchComplete = () => {
-    alert("パスワードの検索が完了しました。");
   };
 
   const onClickReadButton = async () => {
@@ -114,6 +111,8 @@ const PasswordDetail: React.FC = () => {
           id="ACCOUNT"
           optionItems={accountList}
           isEnabled={canUseAccountList}
+          isWidemode={true}
+          selectedAuthName={emptyAuthority}
           onChange={handleAccountChange}
         />
         <Caption caption="パスワード" />
@@ -122,7 +121,7 @@ const PasswordDetail: React.FC = () => {
           id="PWD"
           placeholder="パスワード"
           val={atob(password)}
-          onChange={alertSearchComplete}
+          onChange={() => {}}
         />
       </div>
       <div className="footer" style={footerStyle}>

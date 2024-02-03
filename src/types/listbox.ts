@@ -1,6 +1,10 @@
+import { Authority } from "./authority";
+
 export type ListboxProps = {
-  type: string;
   id: string;
-  placeholder: string;
-  val: string;
+  optionItems: string[];
+  isEnabled: boolean;
+  isWidemode: boolean;
+  selectedAuthName: Authority;
+  onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
 };

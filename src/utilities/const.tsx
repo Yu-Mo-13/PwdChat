@@ -10,4 +10,10 @@ export const AUTHCLASS = {
   Read: "3",
 };
 
-export const FUNCLIST = ["ユーザーマスター", "アカウントマスター"];
+// ユーザーマスターの権限
+export const AUTHCDARRAY: string[] = ["1", "2", "3"];
+
+export const FUNCLIST: string[] = ["ユーザーマスター", "アカウントマスター"];
+
+// 新規登録画面遷移時に渡すパラメータ
+export const ADDUSERPARAM: number = 0;

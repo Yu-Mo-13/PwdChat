@@ -1,17 +1,20 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AppTitle } from "./component/apptitle";
+import { LargeButton } from "./component/largeButton";
 import { Plate } from "./component/plate";
 import { LoginUser } from "./component/loginuser";
-import { store } from "./proxy/proxy";
+import { authStore } from "./proxy/authProxy";
+import { setMuserStore } from "./proxy/muserProxy";
 import * as CSS from "csstype";
 import { useSnapshot } from "valtio";
 import { getUserList } from "./api/user";
 import { User } from "./types/user";
+import { AUTHCLASS, ADDUSERPARAM } from "./utilities/const";
 
 const UserMasterList: React.FC = () => {
   const navigate = useNavigate();
-  const snap = useSnapshot(store);
+  const authSnap = useSnapshot(authStore);
   const [userList, setUserList] = useState<User[]>([]);
   const [canSelect, setCanSelect] = useState<boolean>(false);
 
@@ -21,7 +24,11 @@ const UserMasterList: React.FC = () => {
       setUserList(await getUserList());
       setCanSelect(true);
     };
-    fetchUserList();
+    try {
+      fetchUserList();
+    } catch (error: unknown) {
+      alert(`ユーザーマスターの取得に失敗しました: ${error}`);
+    }
   });
 
   const userMasterListStyle: CSS.Properties = {
@@ -32,29 +39,40 @@ const UserMasterList: React.FC = () => {
     height: "100%",
   };
 
+  const headerStyle: CSS.Properties = {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+  };
+
+  const moveToDetail = (id: number) => {
+    setMuserStore(id);
+    navigate(`/user/detail`, { replace: true });
+  };
+
   return (
     <div className="contents">
-      <LoginUser caption={snap.jpnname} />
+      <LoginUser caption={authSnap.jpnname} />
       <AppTitle caption="ユーザーマスター" />
-      <Plate
-        caption="戻る"
-        isEnabled={canSelect}
-        onClick={() => navigate("/menu", { replace: true })}
-      />
-      <Plate
-        caption="新規作成"
-        isEnabled={canSelect}
-        onClick={() => navigate("/useradd", { replace: true })}
-      />
+      <div className="header" style={headerStyle}>
+        <LargeButton
+          caption="戻る"
+          isEnabled={canSelect}
+          onClick={() => navigate("/menu", { replace: true })}
+        />
+        <LargeButton
+          caption="新規作成"
+          isEnabled={canSelect && authSnap.authcd === AUTHCLASS.Admin}
+          onClick={() => moveToDetail(ADDUSERPARAM)}
+        />
+      </div>
       <div className="userList" style={userMasterListStyle}>
         {userList.map((user: User) => (
           <Plate
             key={user.id}
             caption={user.jpnname}
-            isEnabled={canSelect}
-            onClick={() =>
-              navigate(`/userdetail/${user.id}`, { replace: true })
-            }
+            isEnabled={canSelect && authSnap.authcd === AUTHCLASS.Admin}
+            onClick={() => moveToDetail(user.id)}
           />
         ))}
       </div>

@@ -3,14 +3,14 @@ import { useNavigate } from "react-router-dom";
 import { AppTitle } from "./component/apptitle";
 import { Plate } from "./component/plate";
 import { LoginUser } from "./component/loginuser";
-import { store, resetStore } from "./proxy/proxy";
+import { authStore, resetAuthStore } from "./proxy/authProxy";
 import { FUNCLIST } from "./utilities/const";
 import * as CSS from "csstype";
 import { useSnapshot } from "valtio";
 
 const Menu: React.FC = () => {
   const navigate = useNavigate();
-  const snap = useSnapshot(store);
+  const snap = useSnapshot(authStore);
 
   const menuStyle: CSS.Properties = {
     display: "flex",
@@ -35,7 +35,7 @@ const Menu: React.FC = () => {
   };
 
   const onClickLogout = () => {
-    resetStore();
+    resetAuthStore();
     navigate("/", { replace: true });
   };
 

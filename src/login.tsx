@@ -6,7 +6,7 @@ import { checkLogin } from "./api/user.ts";
 import { Textbox } from "./component/textbox.tsx";
 import { AppTitle } from "./component/apptitle.tsx";
 import { LargeButton } from "./component/largeButton.tsx";
-import { setStore } from "./proxy/proxy.ts";
+import { setAuthStore } from "./proxy/authProxy.ts";
 import { User } from "./types/user.ts";
 import "./App.css";
 import { AUTHCLASS } from "./utilities/const.tsx";
@@ -28,7 +28,7 @@ const Login = () => {
       await LoginSchema.validate({ userId, keyword });
       const userInfo: User = await checkLogin(userId, btoa(keyword));
       // ログイン情報をストアに保存する
-      setStore(userInfo);
+      setAuthStore(userInfo);
 
       // 権限コードを取得して、遷移先の画面を決定する
       const authCode = userInfo.authcd;
