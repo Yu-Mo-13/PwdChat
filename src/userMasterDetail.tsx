@@ -64,6 +64,7 @@ export const UserMasterDetail: React.FC = () => {
     }
   };
 
+  // 初期表示でユーザー情報を取得し、userDetailInfoとして設定する
   useState(() => {
     try {
       if (muserSnap.id !== 0) {
@@ -81,7 +82,6 @@ export const UserMasterDetail: React.FC = () => {
       : getSelectedAuthName(userDetailInfo.authcd);
   });
 
-  // 初期表示でユーザー情報を取得し、userDetailInfoとして設定する
   return (
     <div className="contents">
       <LoginUser caption={authSnap.jpnname} />
