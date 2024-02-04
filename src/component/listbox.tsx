@@ -36,13 +36,9 @@ export const Listbox = (props: ListboxProps) => {
     marginLeft: "0.5rem",
   };
 
-  return (
-    <div className="list" style={divStyle}>
-      <select
-        style={listBoxStyle}
-        onChange={onChange}
-        value={selectedAuthName.cd}
-      >
+  if (isWidemode) {
+    return (
+      <select style={listBoxStyle} onChange={onChange}>
         {/* propsで渡された配列の個数分optionを生成 */}
         {optionItems.map((item: string, index: number) => {
           return (
@@ -52,11 +48,28 @@ export const Listbox = (props: ListboxProps) => {
           );
         })}
       </select>
-      {!isWidemode && (
+    );
+  } else {
+    return (
+      <div className="list" style={divStyle}>
+        <select
+          style={listBoxStyle}
+          onChange={onChange}
+          value={selectedAuthName.cd}
+        >
+          {/* propsで渡された配列の個数分optionを生成 */}
+          {optionItems.map((item: string, index: number) => {
+            return (
+              <option key={index} id={id} value={item} disabled={!isEnabled}>
+                {item}
+              </option>
+            );
+          })}
+        </select>
         <label className="name" style={labelStyle}>
           {selectedAuthName.name}
         </label>
-      )}
-    </div>
-  );
+      </div>
+    );
+  }
 };
