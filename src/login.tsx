@@ -33,11 +33,10 @@ const Login = () => {
       // 権限コードを取得して、遷移先の画面を決定する
       const authCode = userInfo.authcd;
 
-      // 管理者権限はメニュー画面へ遷移
-      // 一般権限はパスワード検索画面へ遷移
-      authCode === AUTHCLASS.Admin
-        ? navigate("/menu", { replace: true })
-        : navigate("/detail", { replace: true });
+      // 一般権限のみパスワード検索画面へ遷移
+      authCode === AUTHCLASS.General
+        ? navigate("/detail", { replace: true })
+        : navigate("/menu", { replace: true });
     } catch (error: unknown) {
       if (error instanceof yup.ValidationError) {
         // バリデーションエラー

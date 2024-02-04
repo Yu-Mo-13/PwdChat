@@ -71,7 +71,7 @@ const UserMasterList: React.FC = () => {
           <Plate
             key={user.id}
             caption={user.jpnname}
-            isEnabled={canSelect && authSnap.authcd === AUTHCLASS.Admin}
+            isEnabled={canSelect}
             onClick={() => moveToDetail(user.id)}
           />
         ))}

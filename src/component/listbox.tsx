@@ -44,9 +44,9 @@ export const Listbox = (props: ListboxProps) => {
         value={selectedAuthName.cd}
       >
         {/* propsで渡された配列の個数分optionを生成 */}
-        {optionItems.map((item: string) => {
+        {optionItems.map((item: string, index: number) => {
           return (
-            <option id={id} value={item} disabled={!isEnabled}>
+            <option key={index} id={id} value={item} disabled={!isEnabled}>
               {item}
             </option>
           );

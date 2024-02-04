@@ -47,3 +47,31 @@ export const checkLogin = async (name: string, password: string) => {
   const data = await response.json();
   return data;
 };
+
+// ユーザーマスター情報を登録する
+// URL: /user/create/engname={engname}&jpnname={jpnname}&password={password}&authcd={authcd}
+export const createUser = async (user: User) => {
+  const APIURL: string = import.meta.env.VITE_API_BASE_URL;
+  const response = await fetch(
+    `${APIURL}/user/create/engname=${user.engname}&jpnname=${user.jpnname}&password=${user.password}&authcd=${user.authcd}`,
+    {
+      method: "POST",
+    }
+  );
+  const data = await response.json();
+  return data;
+};
+
+// ユーザーマスター情報を更新する
+// URL: /user/update/id={id}&engname={engname}&jpnname={jpnname}&password={password}&authcd={authcd}
+export const updateUser = async (user: User) => {
+  const APIURL: string = import.meta.env.VITE_API_BASE_URL;
+  const response = await fetch(
+    `${APIURL}/user/update/id=${user.id}&engname=${user.engname}&jpnname=${user.jpnname}&password=${user.password}&authcd=${user.authcd}`,
+    {
+      method: "POST",
+    }
+  );
+  const data = await response.json();
+  return data;
+};

@@ -13,7 +13,7 @@ export const LargeButton = (props: ButtonProps) => {
     marginBottom: "10px",
     marginTop: "15px",
     textAlign: "center",
-    backgroundColor: "#3cb371",
+    backgroundColor: isEnabled ? "#3cb371" : "#808080",
   };
 
   return (
