@@ -32,7 +32,7 @@ const schema = yup.object().shape({
       "ユーザー名(英)は半角英数字のみ入力してください。",
       (value) => {
         return /^[a-zA-Z0-9]+$/.test(value);
-      }
+      },
     ),
   password: yup.string().required("パスワードを入力してください。"),
   jpnname: yup.string().required("ユーザー名(日)を入力してください。"),
@@ -92,6 +92,7 @@ export const UserMasterDetail: React.FC = () => {
         ? await createUser(userDetailInfo)
         : await updateUser(userDetailInfo);
       alert(`ユーザー情報を${alertMessage}しました。`);
+      resetMuserStore();
       navigate("/user/", { replace: true });
     } catch (error: unknown) {
       if (error instanceof yup.ValidationError) {

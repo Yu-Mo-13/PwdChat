@@ -25,9 +25,9 @@ const Menu: React.FC = () => {
       case FUNCLIST[0]:
         navigate("/user", { replace: true });
         break;
-      // case FUNCLIST[1]:
-      //   navigate("/account", { replace: true });
-      //   break;
+      case FUNCLIST[1]:
+        navigate("/account", { replace: true });
+        break;
       default:
         alert("Coming soon...");
         break;

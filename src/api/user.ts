@@ -42,7 +42,7 @@ export const getUser = async (id: number) => {
 export const checkLogin = async (name: string, password: string) => {
   const APIURL: string = import.meta.env.VITE_API_BASE_URL;
   const response = await fetch(
-    APIURL + "/user/engname=" + name + "&password=" + password
+    APIURL + "/user/engname=" + name + "&password=" + password,
   );
   const data = await response.json();
   return data;
@@ -56,7 +56,7 @@ export const createUser = async (user: User) => {
     `${APIURL}/user/create/engname=${user.engname}&jpnname=${user.jpnname}&password=${user.password}&authcd=${user.authcd}`,
     {
       method: "POST",
-    }
+    },
   );
   const data = await response.json();
   return data;
@@ -70,7 +70,7 @@ export const updateUser = async (user: User) => {
     `${APIURL}/user/update/id=${user.id}&engname=${user.engname}&jpnname=${user.jpnname}&password=${user.password}&authcd=${user.authcd}`,
     {
       method: "POST",
-    }
+    },
   );
   const data = await response.json();
   return data;

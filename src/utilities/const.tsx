@@ -17,3 +17,7 @@ export const FUNCLIST: string[] = ["ユーザーマスター", "アカウント�
 
 // 新規登録画面遷移時に渡すパラメータ
 export const ADDUSERPARAM: number = 0;
+export const ADDACCOUNTPARAM: { Id: number; Other: string } = {
+  Id: 0,
+  Other: "",
+};
