@@ -1,5 +1,6 @@
 // APIのルートパス
-export const API_ROOT = process.env.VITE_API_BASE_URL;
+// export const API_ROOT = process.env.VITE_API_BASE_URL;
+export const API_ROOT = import.meta.env.VITE_API_BASE_URL;
 
 // アカウント区分
 export const ACCOUNTCLASS = {
