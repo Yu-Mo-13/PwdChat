@@ -1,8 +1,9 @@
 import { Account } from "../types/account";
+import { API_ROOT } from "../utilities/const";
+import "cross-fetch/polyfill";
 
 export const getAccountList = async (app: string = "") => {
-  const APIURL: string = import.meta.env.VITE_API_BASE_URL;
-  const response = await fetch(APIURL + "/account");
+  const response = await fetch(API_ROOT + "/account");
   const data = await response.json();
   const accountList: Account[] = new Array(data.length);
   if (app === "") {
@@ -36,9 +37,8 @@ export const getAccountList = async (app: string = "") => {
 // アカウントマスター情報を取得する
 // URL: /account/app={app}/account={account}
 export const getAccount = async (app: string, account: string) => {
-  const APIURL: string = import.meta.env.VITE_API_BASE_URL;
   const response = await fetch(
-    APIURL + "/account/app=" + app + "/account=" + account,
+    `${API_ROOT}/account/app=${app}/account=${account}`
   );
   const data = await response.json();
   const accountInfo: Account = {
@@ -55,12 +55,11 @@ export const getAccount = async (app: string, account: string) => {
 // アカウントマスター情報を登録する
 // URL: /account/create/app={app}/account={account}
 export const createAccount = async (accountInfo: Account) => {
-  const APIURL: string = import.meta.env.VITE_API_BASE_URL;
   const response = await fetch(
-    `${APIURL}/account/create/app=${accountInfo.app}/account=${accountInfo.account}`,
+    `${API_ROOT}/account/create/app=${accountInfo.app}/account=${accountInfo.account}`,
     {
       method: "POST",
-    },
+    }
   );
   const data = await response.json();
   return data;
@@ -69,12 +68,11 @@ export const createAccount = async (accountInfo: Account) => {
 // アカウントマスター情報を削除する
 // URL: /account/delete/app={app}/account={account}
 export const deleteAccount = async (accountInfo: Account) => {
-  const APIURL: string = import.meta.env.VITE_API_BASE_URL;
   const response = await fetch(
-    `${APIURL}/account/delete/app=${accountInfo.app}/account=${accountInfo.account}`,
+    `${API_ROOT}/account/delete/app=${accountInfo.app}/account=${accountInfo.account}`,
     {
       method: "POST",
-    },
+    }
   );
   const data = await response.json();
   return data;
