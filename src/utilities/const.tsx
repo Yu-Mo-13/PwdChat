@@ -1,3 +1,7 @@
+// APIのルートパス
+export const API_ROOT = process.env.VITE_API_BASE_URL;
+
+// アカウント区分
 export const ACCOUNTCLASS = {
   NeedAccount: "1",
   NoNeedAccount: "2",

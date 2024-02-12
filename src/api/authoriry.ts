@@ -1,10 +1,11 @@
 import type { Authority } from "../types/authority";
+import { API_ROOT } from "../utilities/const";
+import "cross-fetch/polyfill";
 
 // 権限マスター一覧を取得する
 // url: /authority/ method: get
 export const getAuthorityList = async () => {
-  const APIURL: string = import.meta.env.VITE_API_BASE_URL;
-  const response = await fetch(APIURL + "/authority");
+  const response = await fetch(`${API_ROOT}/authority`);
   const data = await response.json();
   const authorityList: Authority[] = new Array(data.length);
   for (let i = 0; i < data.length; i++) {
