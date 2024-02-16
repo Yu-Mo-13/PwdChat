@@ -1,7 +1,9 @@
+import "cross-fetch/polyfill";
+
 const getPassword = async (
   app: string,
   accountClas: string,
-  account: string,
+  account: string
 ) => {
   const APIURL: string = import.meta.env.VITE_API_BASE_URL;
   const param =
