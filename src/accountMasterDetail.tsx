@@ -15,7 +15,7 @@ import { ReadonlyTextbox } from "./component/readonlyTextBox";
 import { Caption } from "./component/caption";
 import { Textbox } from "./component/textbox";
 
-export const AccountMasterDetail: React.FC = () => {
+const AccountMasterDetail: React.FC = () => {
   const NEWID: number = 0;
   const navigate = useNavigate();
   const authSnap = useSnapshot(authStore);
@@ -32,7 +32,7 @@ export const AccountMasterDetail: React.FC = () => {
             accountSnap.appList.filter((appName) => appName === value).length >
             0
           );
-        },
+        }
       ),
     account: yup.string().required("アカウントを入力してください。"),
   });
@@ -55,7 +55,7 @@ export const AccountMasterDetail: React.FC = () => {
   const fetchApplicationList = async () => {
     const accountDetailInfo: Account = await getAccount(
       accountSnap.app,
-      accountSnap.account,
+      accountSnap.account
     );
     setAccountDetailInfo(accountDetailInfo);
   };
@@ -95,7 +95,7 @@ export const AccountMasterDetail: React.FC = () => {
         return;
       }
       alert(
-        `アカウント情報の${accountSnap.id === NEWID ? "登録" : "削除"}に失敗しました。: ${error}`,
+        `アカウント情報の${accountSnap.id === NEWID ? "登録" : "削除"}に失敗しました。: ${error}`
       );
     }
   };
@@ -204,3 +204,5 @@ export const AccountMasterDetail: React.FC = () => {
     );
   }
 };
+
+export default AccountMasterDetail;

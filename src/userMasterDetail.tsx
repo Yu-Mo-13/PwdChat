@@ -32,13 +32,13 @@ const schema = yup.object().shape({
       "ユーザー名(英)は半角英数字のみ入力してください。",
       (value) => {
         return /^[a-zA-Z0-9]+$/.test(value);
-      },
+      }
     ),
   password: yup.string().required("パスワードを入力してください。"),
   jpnname: yup.string().required("ユーザー名(日)を入力してください。"),
 });
 
-export const UserMasterDetail: React.FC = () => {
+const UserMasterDetail: React.FC = () => {
   const navigate = useNavigate();
   const authSnap = useSnapshot(authStore);
   const muserSnap = useSnapshot(muserStore);
@@ -260,3 +260,5 @@ export const UserMasterDetail: React.FC = () => {
     );
   }
 };
+
+export default UserMasterDetail;

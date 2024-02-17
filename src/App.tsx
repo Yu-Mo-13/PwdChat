@@ -4,9 +4,9 @@ import Login from "./login.tsx";
 import PasswordDetail from "./PasswordDetail.tsx";
 import Menu from "./menu.tsx";
 import UserMasterList from "./userMasterList.tsx";
-import { UserMasterDetail } from "./userMasterDetail.tsx";
+import UserMasterDetail from "./userMasterDetail.tsx";
 import AccountMasterList from "./accountMasterList.tsx";
-import { AccountMasterDetail } from "./accountMasterDetail.tsx";
+import AccountMasterDetail from "./accountMasterDetail.tsx";
 
 function App() {
   return (
