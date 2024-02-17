@@ -18,8 +18,9 @@ import { Plate } from "./component/plate";
 import { authStore, resetAuthStore } from "./proxy/authProxy";
 import { resetPasswordStore } from "./proxy/passwordProxy";
 import { emptyAuthority } from "./types/authority";
-import { ACCOUNTCLASS } from "./utilities/const";
 import { AccountandPassword } from "./types/account";
+import { ACCOUNTCLASS } from "./utilities/const";
+import { convertCaption } from "./utilities/function";
 
 const PasswordDetail: React.FC = () => {
   const [passwordDetailInfo, setPasswordDetailInfo] = useState<
@@ -48,7 +49,7 @@ const PasswordDetail: React.FC = () => {
 
   const createAccountList = async (app: string, accountClas: string) => {
     const accountList = await getAccountList(app, accountClas);
-    for (const rec of accountList) {
+    accountList.map(async (rec) => {
       const accountInfo = await getAccount(app, rec);
       const password = await getPassword(app, accountClas, rec);
       // 各アカウント情報をpasswordDetailInfoにpushする
@@ -64,11 +65,7 @@ const PasswordDetail: React.FC = () => {
           password: password,
         },
       ]);
-    }
-  };
-
-  const convertCaption = (account: string) => {
-    return account.length > 10 ? account.slice(0, 20) + "..." : account;
+    });
   };
 
   const onClickBackButton = () => {
@@ -144,9 +141,7 @@ const PasswordDetail: React.FC = () => {
               key={i}
               caption={convertCaption(rec.account)}
               isEnabled={isPressed}
-              onClick={() => {
-                onClickGetPasswordButton(rec.password);
-              }}
+              onClick={() => onClickGetPasswordButton(rec.password)}
             />
           ))
         ) : (

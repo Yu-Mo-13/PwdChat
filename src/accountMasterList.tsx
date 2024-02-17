@@ -15,6 +15,7 @@ import { setAccountStore } from "./proxy/accountProxy";
 import { Account } from "./types/account";
 import { emptyAuthority } from "./types/authority";
 import { AUTHCLASS, ADDACCOUNTPARAM } from "./utilities/const";
+import { convertCaption } from "./utilities/function";
 
 const AccountMasterList: React.FC = () => {
   const navigate = useNavigate();
@@ -51,12 +52,8 @@ const AccountMasterList: React.FC = () => {
     justifyContent: "space-between",
   };
 
-  const convertCaption = (account: string) => {
-    return account.length > 10 ? account.slice(0, 20) + "..." : account;
-  };
-
   const refreshAccountList = async (
-    e: React.ChangeEvent<HTMLSelectElement>,
+    e: React.ChangeEvent<HTMLSelectElement>
   ) => {
     setSelectedApp(e.target.value);
     setAccountList(await getAccountList(e.target.value));
@@ -66,7 +63,7 @@ const AccountMasterList: React.FC = () => {
     id: number,
     app: string,
     account: string,
-    applicationList: string[],
+    applicationList: string[]
   ) => {
     setAccountStore(id, app, account, applicationList);
     navigate(`/account/detail`, { replace: true });
@@ -90,7 +87,7 @@ const AccountMasterList: React.FC = () => {
               ADDACCOUNTPARAM.Id,
               ADDACCOUNTPARAM.Other,
               ADDACCOUNTPARAM.Other,
-              applicationList,
+              applicationList
             )
           }
         />
@@ -118,7 +115,7 @@ const AccountMasterList: React.FC = () => {
                 account.id,
                 account.app,
                 account.account,
-                applicationList,
+                applicationList
               )
             }
           />
