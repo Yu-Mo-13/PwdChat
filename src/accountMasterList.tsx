@@ -4,17 +4,18 @@ import { useSnapshot } from "valtio";
 import * as CSS from "csstype";
 import { getApplicationList } from "./api/application";
 import { getAccountList } from "./api/account";
-import { AppTitle } from "./component/apptitle";
-import { Caption } from "./component/caption";
-import { LargeButton } from "./component/largeButton";
-import { Listbox } from "./component/listbox";
-import { Plate } from "./component/plate";
-import { LoginUser } from "./component/loginuser";
+import { AppTitle } from "./components/apptitle";
+import { Caption } from "./components/caption";
+import { LargeButton } from "./components/largeButton";
+import { Listbox } from "./components/listbox";
+import { Plate } from "./components/plate";
+import { LoginUser } from "./components/loginuser";
 import { authStore } from "./proxy/authProxy";
 import { setAccountStore } from "./proxy/accountProxy";
 import { Account } from "./types/account";
 import { emptyAuthority } from "./types/authority";
 import { AUTHCLASS, ADDACCOUNTPARAM } from "./utilities/const";
+import { convertCaption } from "./utilities/function";
 
 const AccountMasterList: React.FC = () => {
   const navigate = useNavigate();
@@ -51,12 +52,8 @@ const AccountMasterList: React.FC = () => {
     justifyContent: "space-between",
   };
 
-  const convertCaption = (account: string) => {
-    return account.length > 10 ? account.slice(0, 20) + "..." : account;
-  };
-
   const refreshAccountList = async (
-    e: React.ChangeEvent<HTMLSelectElement>,
+    e: React.ChangeEvent<HTMLSelectElement>
   ) => {
     setSelectedApp(e.target.value);
     setAccountList(await getAccountList(e.target.value));
@@ -66,7 +63,7 @@ const AccountMasterList: React.FC = () => {
     id: number,
     app: string,
     account: string,
-    applicationList: string[],
+    applicationList: string[]
   ) => {
     setAccountStore(id, app, account, applicationList);
     navigate(`/account/detail`, { replace: true });
@@ -90,7 +87,7 @@ const AccountMasterList: React.FC = () => {
               ADDACCOUNTPARAM.Id,
               ADDACCOUNTPARAM.Other,
               ADDACCOUNTPARAM.Other,
-              applicationList,
+              applicationList
             )
           }
         />
@@ -118,7 +115,7 @@ const AccountMasterList: React.FC = () => {
                 account.id,
                 account.app,
                 account.account,
-                applicationList,
+                applicationList
               )
             }
           />

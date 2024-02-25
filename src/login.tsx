@@ -2,14 +2,14 @@ import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup"; // yupのインポート
-import { checkLogin } from "./api/user.ts";
-import { Textbox } from "./component/textbox.tsx";
-import { AppTitle } from "./component/apptitle.tsx";
-import { LargeButton } from "./component/largeButton.tsx";
-import { setAuthStore } from "./proxy/authProxy.ts";
-import { User } from "./types/user.ts";
+import { checkLogin } from "./api/user";
+import { Textbox } from "./components/textbox";
+import { AppTitle } from "./components/apptitle";
+import { LargeButton } from "./components/largeButton";
+import { setAuthStore } from "./proxy/authProxy";
+import { User } from "./types/user";
 import "./App.css";
-import { AUTHCLASS } from "./utilities/const.tsx";
+import { AUTHCLASS } from "./utilities/const";
 
 // yupによるバリデーションスキーマの定義
 const LoginSchema = yup.object().shape({

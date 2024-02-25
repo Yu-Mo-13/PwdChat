@@ -4,8 +4,8 @@ export const API_ROOT = import.meta.env.VITE_API_BASE_URL;
 
 // アカウント区分
 export const ACCOUNTCLASS = {
+  NoNeedAccount: "0",
   NeedAccount: "1",
-  NoNeedAccount: "2",
 };
 
 // add モバイルマスター追加対応

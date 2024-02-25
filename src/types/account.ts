@@ -8,3 +8,7 @@ export type Account = {
   created_at: string;
   updated_at: string;
 };
+
+export type AccountandPassword = Account & {
+  password: string;
+};
