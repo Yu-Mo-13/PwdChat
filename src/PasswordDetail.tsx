@@ -9,12 +9,12 @@ import {
 } from "./api/application";
 import { getAccount } from "./api/account";
 import { getPassword } from "./api/password";
-import { AppTitle } from "./component/apptitle";
-import { Caption } from "./component/caption";
-import { LargeButton } from "./component/largeButton";
-import { LoginUser } from "./component/loginuser";
-import { Listbox } from "./component/listbox";
-import { Plate } from "./component/plate";
+import { AppTitle } from "./components/apptitle";
+import { Caption } from "./components/caption";
+import { LargeButton } from "./components/largeButton";
+import { LoginUser } from "./components/loginuser";
+import { Listbox } from "./components/listbox";
+import { Plate } from "./components/plate";
 import { authStore, resetAuthStore } from "./proxy/authProxy";
 import { resetPasswordStore } from "./proxy/passwordProxy";
 import { emptyAuthority } from "./types/authority";

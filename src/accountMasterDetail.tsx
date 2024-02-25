@@ -8,12 +8,12 @@ import { authStore } from "./proxy/authProxy";
 import { accountStore, resetAccountStore } from "./proxy/accountProxy";
 import { Account } from "./types/account";
 import { AUTHCLASS } from "./utilities/const";
-import { LoginUser } from "./component/loginuser";
-import { AppTitle } from "./component/apptitle";
-import { LargeButton } from "./component/largeButton";
-import { ReadonlyTextbox } from "./component/readonlyTextBox";
-import { Caption } from "./component/caption";
-import { Textbox } from "./component/textbox";
+import { LoginUser } from "./components/loginuser";
+import { AppTitle } from "./components/apptitle";
+import { LargeButton } from "./components/largeButton";
+import { ReadonlyTextbox } from "./components/readonlyTextBox";
+import { Caption } from "./components/caption";
+import { Textbox } from "./components/textbox";
 
 const AccountMasterDetail: React.FC = () => {
   const NEWID: number = 0;

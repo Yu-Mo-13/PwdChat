@@ -1,8 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { AppTitle } from "./component/apptitle";
-import { Plate } from "./component/plate";
-import { LoginUser } from "./component/loginuser";
+import { AppTitle } from "./components/apptitle";
+import { Plate } from "./components/plate";
+import { LoginUser } from "./components/loginuser";
 import { authStore, resetAuthStore } from "./proxy/authProxy";
 import { FUNCLIST } from "./utilities/const";
 import * as CSS from "csstype";

@@ -3,9 +3,9 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup"; // yupのインポート
 import { checkLogin } from "./api/user";
-import { Textbox } from "./component/textbox";
-import { AppTitle } from "./component/apptitle";
-import { LargeButton } from "./component/largeButton";
+import { Textbox } from "./components/textbox";
+import { AppTitle } from "./components/apptitle";
+import { LargeButton } from "./components/largeButton";
 import { setAuthStore } from "./proxy/authProxy";
 import { User } from "./types/user";
 import "./App.css";
