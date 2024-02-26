@@ -151,12 +151,15 @@ const PasswordDetail: React.FC = () => {
             isEnabled={isPressed}
             onClick={async () => {
               // パスワードをクリップボードにコピーする
-              const password = await getPassword(
-                selectedAppName,
-                accountClass,
-                ""
+              // const password = await getPassword(
+              //   selectedAppName,
+              //   accountClass,
+              //   ""
+              // );
+              // onClickGetPasswordButton(password);
+              onClickGetPasswordButton(
+                await getPassword(selectedAppName, accountClass, "")
               );
-              onClickGetPasswordButton(password);
             }}
           />
         )}
