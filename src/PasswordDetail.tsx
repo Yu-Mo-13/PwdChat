@@ -19,7 +19,7 @@ import { authStore, resetAuthStore } from "./proxy/authProxy";
 import { resetPasswordStore } from "./proxy/passwordProxy";
 import { emptyAuthority } from "./types/authority";
 import { AccountandPassword } from "./types/account";
-import { ACCOUNTCLASS } from "./utilities/const";
+import { ACCOUNTCLASS, ADDACCOUNTPARAM, AUTHCLASS } from "./utilities/const";
 import { convertCaption } from "./utilities/function";
 
 const PasswordDetail: React.FC = () => {
@@ -66,6 +66,25 @@ const PasswordDetail: React.FC = () => {
         },
       ]);
     });
+  };
+
+  const onClickReadButton = async () => {
+    setPasswordDetailInfo([]);
+    if (accountClass === ACCOUNTCLASS.NeedAccount) {
+      createAccountList(selectedAppName, accountClass);
+      return;
+    }
+    setPasswordDetailInfo([
+      {
+        id: ADDACCOUNTPARAM.Id,
+        app: selectedAppName,
+        account: "",
+        deleteflg: "",
+        created_at: "",
+        updated_at: "",
+        password: await getPassword(selectedAppName, accountClass, ""),
+      },
+    ]);
   };
 
   const onClickBackButton = () => {
@@ -126,11 +145,8 @@ const PasswordDetail: React.FC = () => {
         />
         <LargeButton
           caption="読込"
-          onClick={async () => {
-            setPasswordDetailInfo([]);
-            createAccountList(selectedAppName, accountClass);
-          }}
-          isEnabled={isPressed}
+          onClick={() => onClickReadButton()}
+          isEnabled={isPressed && authSnap.authcd === AUTHCLASS.General}
         />
       </div>
       <div className="accountList" style={accountListStyle}>
@@ -140,7 +156,7 @@ const PasswordDetail: React.FC = () => {
             <Plate
               key={i}
               caption={convertCaption(rec.account)}
-              isEnabled={isPressed}
+              isEnabled={isPressed && authSnap.authcd === AUTHCLASS.General}
               onClick={() => onClickGetPasswordButton(rec.password)}
             />
           ))
@@ -148,16 +164,10 @@ const PasswordDetail: React.FC = () => {
           <Plate
             key={0}
             caption={"取得"}
-            isEnabled={isPressed}
-            onClick={async () => {
-              // パスワードをクリップボードにコピーする
-              const password = await getPassword(
-                selectedAppName,
-                accountClass,
-                ""
-              );
-              await onClickGetPasswordButton(password);
-            }}
+            isEnabled={isPressed && authSnap.authcd === AUTHCLASS.General}
+            onClick={() =>
+              onClickGetPasswordButton(passwordDetailInfo[0].password)
+            }
           />
         )}
       </div>
